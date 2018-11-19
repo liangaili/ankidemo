@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>
+test
+</title>
+<script>
+function test(){
+    function change(wordlist){
+        var l = wordlist.length;
+        var i = Math.floor(Math.random()*l);
+        var items = wordlist[i].split('\t');
+        document.getElementById("kana").innerHTML = items[1];
+        document.getElementById("word").innerHTML = "<font size=7>" + items[0] + "</font>";
+        document.getElementById("meaning").innerHTML = items[3];
+        setTimeout(change, 500, wordlist);
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(xhttp.responseText.length);
+            var wordlist = xhttp.responseText.split('\n');
+            console.log(wordlist[0]);
+            change(wordlist);
+        }
+    };
+    xhttp.open("GET", "word.txt", true);
+    xhttp.send();
+}
+</script>
+
+</head>
+<body onload="test()">
+
+<div id="kana">test</div>
+<div id="word"><font size=7>test</font></div>
+<div id="meaning">test</div>
+</body>
+</html>
